@@ -1,0 +1,20 @@
+{
+  "name": "zibu-mcaddon-explorer",
+  "module": "index.ts",
+  "devDependencies": {
+    "@types/adm-zip": "^0.5.5",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "dev": "bun --watch index.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "adm-zip": "^0.5.14",
+    "jsonrepair": "^3.8.0",
+    "zod": "^3.23.8"
+  }
+}
