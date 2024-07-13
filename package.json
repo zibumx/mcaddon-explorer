@@ -1,5 +1,5 @@
 {
-  "name": "zibu-mcaddon-explorer",
+  "name": "@zibu/mcaddon-explorer",
   "module": "index.ts",
   "devDependencies": {
     "@types/adm-zip": "^0.5.5",
