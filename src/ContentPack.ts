@@ -26,11 +26,28 @@ class Folder {
     const path = this.getAbsolutePath(name);
     return this.zipEntries.find((entry) => entry.entryName === path);
   }
+
+  getEntries() {
+    return this.zipEntries.filter((entry) =>
+      entry.entryName.startsWith(this.folderPath)
+    );
+  }
+
+  filterEntries(predicate: (entry: AdmZip.IZipEntry) => boolean) {
+    return this.zipEntries.filter(predicate);
+  }
 }
 
+/**
+ * Represents a content pack.
+ */
 class ContentPack {
   private folder: Folder;
+
   manifest: Manifest;
+  /**
+   * Represents the filters used to validate content in a content pack.
+   */
   static filters: ContentFilter[] = [
     new ScriptFilter(),
     new ResourceFilter(),
@@ -38,10 +55,19 @@ class ContentPack {
     new DataPackFilter(),
   ];
 
+  /**
+   * Retrieves the folder associated with the content pack.
+   * 
+   * @returns The folder object.
+   */
   getFolder(): Folder {
     return this.folder;
   }
 
+  /**
+   * Represents a content pack.
+   * @param entries - The folder containing the content pack entries.
+   */
   constructor(entries: Folder) {
     this.folder = entries;
 
@@ -65,23 +91,42 @@ class ContentPack {
     }
   }
 
+  /**
+   * Gets the name of the content pack from the manifest.
+   * @returns The name of the content pack.
+   */
   get name(): string {
     return this.manifest.header.name;
   }
 
+  /**
+   * Gets the description of the content pack from the manifest.
+   * @returns The description of the content pack, or undefined if not available.
+   */
   get description(): string | undefined {
     return this.manifest.header.description;
   }
 
-  get type(): string {
+  /**
+   * Gets the content type of the content pack.
+   * @returns The content type.
+   * @throws {Error} If the content type is unknown.
+   */
+  getType(): ContentFilter {
     for (const filter of ContentPack.filters) {
       if (filter.contentType === this.manifest.modules[0].type) {
-        return filter.contentType;
+        return filter;
       }
     }
     throw new Error("Unknown content type");
   }
 
+  /**
+   * Creates an array of ContentPack instances from a buffer containing a pack file.
+   * 
+   * @param buffer - The buffer containing the pack file.
+   * @returns A promise that resolves to an array of ContentPack instances.
+   */
   static async fromPackFileBuffer(buffer: Buffer): Promise<ContentPack[]> {
     // Recursively explore the zip file, looking inside folders to see if they are valid content packs
     const zip = new AdmZip(buffer);
@@ -126,6 +171,12 @@ class ContentPack {
     ];
   }
 
+  /**
+   * Creates a new ContentPack instance from a file.
+   * @param filePath - The path to the file.
+   * @returns A Promise that resolves to a ContentPack instance.
+   * @throws An error if the file does not exist.
+   */
   static async fromFile(filePath: string) {
     const file = await Bun.file(filePath);
     if ((await file.exists()) === false)

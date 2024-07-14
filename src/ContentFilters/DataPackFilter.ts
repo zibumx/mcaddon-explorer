@@ -11,6 +11,10 @@ class DataPackFilter extends ContentFilter {
         ) return true;
         return "No data module found in manifest.json";
     }
+
+    getInsights(contentPack: ContentPack) {
+        return {};
+    }
 }
 
 export { DataPackFilter };

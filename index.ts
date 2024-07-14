@@ -1,3 +1,3 @@
-import {ContentPack} from './src/ContentPack';
+import { ContentPack } from "./src/ContentPack";
 
-export {ContentPack};
+export { ContentPack };

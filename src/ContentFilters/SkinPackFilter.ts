@@ -24,6 +24,10 @@ class SkinPackFilter extends ContentFilter {
 
     return true;
   }
+
+  getInsights(contentPack: ContentPack) {
+      
+  }
 }
 
 export { SkinPackFilter };

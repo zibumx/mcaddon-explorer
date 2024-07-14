@@ -10,6 +10,10 @@ class ResourceFilter extends ContentFilter {
       return true;
     return "No resources module found in manifest.json";
   }
+
+  getInsights(contentPack: ContentPack) {
+    return {};
+  }
 }
 
 export { ResourceFilter };
