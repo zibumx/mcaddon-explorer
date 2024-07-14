@@ -1,3 +1,3 @@
 import { ContentPack } from "./src/ContentPack";
-
-export { ContentPack };
+import { FilePackValidator } from "./src/FilePackValidator/Validator";
+export { ContentPack, FilePackValidator };
