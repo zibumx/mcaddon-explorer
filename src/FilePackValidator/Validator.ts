@@ -1,18 +1,11 @@
-import type { ContentPack } from "../ContentPack";
-import { AddonFilePackValidator } from "./AddonPack";
-import { BehaviorPackValidator } from "./BehaviorPack";
-import { ScriptPackValidator } from "./ScriptPack";
-import { TexturePackValidator } from "./TexturePack";
+import type { WorldPack } from "@/World/WorldPack";
+import validators from ".";
+import type { ContentBundle } from "../ContentPack/ContentPack";
 
 class FilePackValidator {
-  static validators = [
-    new AddonFilePackValidator(),
-    new BehaviorPackValidator(),
-    new ScriptPackValidator(),
-    new TexturePackValidator(),
-  ];
+  static validators = validators;
 
-  static validate(filePack: ContentPack[]) {
+  static validate(filePack: ContentBundle) {
     for (const validator of this.validators) {
       const type = validator.getFilePackType(filePack);
       if (type !== undefined) return type;

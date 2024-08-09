@@ -1,12 +1,18 @@
-import type { ContentPack } from "../ContentPack";
+import type { ContentBundle, ContentPack } from "../ContentPack/ContentPack";
 import { FilePackValidatorTemplate } from "./FilePackValidatorTemplate";
 
 class BehaviorPackValidator extends FilePackValidatorTemplate {
-    getFilePackType(type: ContentPack[]): "behavior" | undefined {
-        if(type.length !== 1) return;
-        if(type.find((content) => content.getType().contentType === "data") === undefined) return;
-        return "behavior";
-    }
+  getFilePackType(type: ContentBundle): "behavior" | undefined {
+    const contentPacks = type.contentPacks;
+    if (contentPacks.length !== 1) return;
+    if (
+      contentPacks.find(
+        (content) => content.getType().contentType === "data"
+      ) === undefined
+    )
+      return;
+    return "behavior";
+  }
 }
 
 export { BehaviorPackValidator };

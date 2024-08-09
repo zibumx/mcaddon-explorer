@@ -1,20 +1,18 @@
-import type { ContentPack } from "../ContentPack";
+import type { ContentPack } from "../ContentPack/ContentPack";
 import { ContentFilter } from "./ContentFilter";
 
 class DataPackFilter extends ContentFilter {
-    contentType: string = "data";
+  contentType: string = "data";
 
-    async filter(content: ContentPack): Promise<true | string> {
-        const manifest = content.manifest;
-        if(
-            manifest.modules.find((module) => module.type === "data")
-        ) return true;
-        return "No data module found in manifest.json";
-    }
+  filter(content: ContentPack): true | string {
+    const manifest = content.manifest;
+    if (manifest.modules.find((module) => module.type === "data")) return true;
+    return "No data module found in manifest.json";
+  }
 
-    getInsights(contentPack: ContentPack) {
-        return {};
-    }
+  getInsights(contentPack: ContentPack) {
+    return {};
+  }
 }
 
 export { DataPackFilter };

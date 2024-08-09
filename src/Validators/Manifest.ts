@@ -4,6 +4,7 @@ import { z } from "zod";
 const versionSchema = z.union([
   z.array(z.number()).length(3),
   z.string().regex(/^\d+\.\d+\.\d+$/), // SemVer string format
+  z.string().regex(/^\d+\.\d+\.\d+-.+$/), // SemVer string format with pre-release
 ]);
 
 // UUID type to handle UUIDs
@@ -58,16 +59,21 @@ const capabilitiesSchema = z.array(
 const metadataSchema = z.object({
   authors: z.array(z.string()).optional(),
   license: z.string().optional(),
-  generated_with: z.record(
-    z
-      .string()
-      .regex(/^[a-zA-Z0-9_-]{1,32}$/)
-      .optional(),
-    z
-      .string()
-      .regex(/^\d+\.\d+\.\d+$/)
-      .optional()
-  ),
+  generated_with: z
+    .record(
+      z
+        .string()
+        .regex(/^[a-zA-Z0-9_-]{1,32}$/)
+        .optional(),
+      z.union([
+        z
+          .string()
+          .regex(/^\d+\.\d+\.\d+$/)
+          .optional(),
+        z.array(z.string()).optional(),
+      ])
+    )
+    .optional(),
   product_type: z.enum(["addon"]).optional(),
   url: z.string().url().optional(),
 });

@@ -1,11 +1,11 @@
-import type { ContentPack } from "../ContentPack";
+import type { ContentPack } from "../ContentPack/ContentPack";
 import { skipPackSchema } from "../Validators/SkinsJson";
 import { validateEntry } from "../Validators/Validate";
 import { ContentFilter } from "./ContentFilter";
 
 class SkinPackFilter extends ContentFilter {
   contentType: string = "skins";
-  async filter(content: ContentPack): Promise<true | string> {
+  filter(content: ContentPack): true | string {
     const manifest = content.manifest;
     if (
       manifest.format_version !== 1 ||
@@ -19,15 +19,13 @@ class SkinPackFilter extends ContentFilter {
     if (!skins) return "No skins.json file found in the skin pack";
 
     const skinsContent = validateEntry(skins, skipPackSchema);
-    
-    if(skinsContent.success === false) return skinsContent.error.toString();
+
+    if (skinsContent.success === false) return skinsContent.error.toString();
 
     return true;
   }
 
-  getInsights(contentPack: ContentPack) {
-      
-  }
+  getInsights(contentPack: ContentPack) {}
 }
 
 export { SkinPackFilter };

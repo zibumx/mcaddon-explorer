@@ -1,7 +1,7 @@
 {
-  "name": "@zibu/mcaddon-explorer",
+  "name": "@zibumx/mcaddon-explorer",
   "module": "index.ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "devDependencies": {
     "@types/adm-zip": "^0.5.5",
     "@types/bun": "latest"
@@ -12,10 +12,15 @@
   "scripts": {
     "dev": "bun --watch index.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zibumx/mcaddon-explorer.git"
+  },
   "type": "module",
   "dependencies": {
     "adm-zip": "^0.5.14",
     "jsonrepair": "^3.8.0",
+    "prismarine-nbt": "^2.5.0",
     "zod": "^3.23.8"
   }
 }

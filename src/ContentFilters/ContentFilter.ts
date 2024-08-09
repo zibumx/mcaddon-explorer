@@ -1,11 +1,11 @@
-import type { ContentPack } from "../ContentPack";
+import type { ContentPack } from "../ContentPack/ContentPack";
 
 abstract class ContentFilter {
-    abstract contentType: string;
+  abstract contentType: string;
 
-    abstract filter(content: ContentPack): Promise<true | string>;
+  abstract filter(content: ContentPack): true | string;
 
-    abstract getInsights(contentPack: ContentPack): any;
+  abstract getInsights(contentPack: ContentPack): any;
 }
 
 export { ContentFilter };
