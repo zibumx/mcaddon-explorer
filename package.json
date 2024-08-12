@@ -1,7 +1,7 @@
 {
   "name": "@zibumx/mcaddon-explorer",
   "module": "index.ts",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "devDependencies": {
     "@types/adm-zip": "^0.5.5",
     "@types/bun": "latest"
