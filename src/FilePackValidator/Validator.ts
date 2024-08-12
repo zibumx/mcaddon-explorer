@@ -10,6 +10,7 @@ class FilePackValidator {
       const type = validator.getFilePackType(filePack);
       if (type !== undefined) return type;
     }
+    return "unknown";
   }
 }
 
